@@ -2,7 +2,13 @@
   <form #login="ngForm" (ngSubmit)="submit()">
     <div class="form-group" *ngIf="tempInC; else tempInF">
       <label for="temperature">Temperature in c</label>
-      <input type="number" name="celsius" [(ngModel)]="celsius" />
+      <input
+        type="number"
+        name="celsius"
+        [(ngModel)]="celsius"
+        required
+        [min]="26.7"
+      />
       <button type="button" (click)="switchUnits()">Switch to °F</button>
     </div>
     <ng-template #tempInF>
@@ -18,10 +24,7 @@
     </div>
     <button type="submit">Calculate</button>
   </form>
-  <div class="result" *ngIf="tempInC; else tempInFResult">
-    Heat Index is: {{ result | number: "1.0-0" }} °C.
+  <div class="result">
+    {{ result }}
   </div>
-  <ng-template #tempInFResult>
-    <div class="result">Heat Index is: {{ result | number: "1.0-0" }} °F.</div>
-  </ng-template>
 </div>

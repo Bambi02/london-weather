@@ -10,8 +10,8 @@ export class IndexCalculatorComponent implements OnInit {
   public celsius: number = 0;
   public farenheit: number = 0;
   public humidity: number = 0;
-  public temperature: number = 0;
-  public result: number = 0;
+  public temperatureinF: number = 0;
+  public result: string = '';
 
   calculateHeatIndex = (t: number, h: number): number => {
     const index =
@@ -28,28 +28,45 @@ export class IndexCalculatorComponent implements OnInit {
   };
 
   transformInputToF(cels: number): void {
-    this.temperature = (9 / 5) * cels + 32;
+    this.temperatureinF = (9 / 5) * cels + 32;
   }
 
-  transformResultToC(far: number): void {
-    this.result = (5 / 9) * (far - 32);
+  transformResultToC(far: number): number {
+    return (5 / 9) * (far - 32);
   }
 
   submit() {
     if (this.tempInC) {
       this.transformInputToF(this.celsius);
-      this.transformResultToC(
-        this.calculateHeatIndex(this.temperature, this.humidity)
+      const resultInC = Math.round(
+        this.transformResultToC(
+          this.calculateHeatIndex(this.temperatureinF, this.humidity)
+        )
       );
+      if (this.celsius < 26.7) {
+        this.result =
+          'Heat Index cannot be calculated for temperature less than 26,7 °C';
+      } else {
+        this.result = `Heat Index is ${resultInC} °C`;
+      }
     } else {
-      this.temperature = this.farenheit;
-      this.result = this.calculateHeatIndex(this.temperature, this.humidity);
+      this.temperatureinF = this.farenheit;
+      const resultInF = this.calculateHeatIndex(
+        this.temperatureinF,
+        this.humidity
+      );
+      if (this.farenheit < 80) {
+        this.result =
+          'Heat Index cannot be calculated for temperature less than 80 °F';
+      } else {
+        this.result = `Heat Index is ${Math.round(resultInF)} °F`;
+      }
     }
   }
 
   switchUnits(): void {
     this.tempInC = !this.tempInC;
-    this.result = 0;
+    this.result = '';
   }
 
   constructor() {}
