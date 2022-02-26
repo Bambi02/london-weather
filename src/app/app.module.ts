@@ -8,6 +8,12 @@ import { WeatherChartComponent } from './weather-chart/weather-chart.component';
 import { IndexCalculatorComponent } from './index-calculator/index-calculator.component';
 import { WeatherService } from './weather.service';
 import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { WeatherTable2Component } from './weather-table2/weather-table2.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { TableComponent } from './table/table.component';
 
 @NgModule({
   declarations: [
@@ -15,8 +21,10 @@ import { FormsModule } from '@angular/forms';
     WeatherTableComponent,
     WeatherChartComponent,
     IndexCalculatorComponent,
+    WeatherTable2Component,
+    TableComponent,
   ],
-  imports: [BrowserModule, HttpClientModule, AppRoutingModule, FormsModule],
+  imports: [BrowserModule, HttpClientModule, AppRoutingModule, FormsModule, BrowserAnimationsModule, MatTableModule, MatPaginatorModule, MatSortModule],
   providers: [WeatherService],
   bootstrap: [AppComponent],
 })
