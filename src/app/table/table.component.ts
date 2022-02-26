@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
-import { TableDataSource } from './table-datasource';
+import { MatTableDataSource } from '@angular/material/table';
 import { WeatherService } from '../weather.service';
 import { WeatherData } from '../weather-data';
 
@@ -14,36 +14,33 @@ import { WeatherData } from '../weather-data';
 export class TableComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatTable) table!: MatTable<WeatherData>;
 
-  weatherData: WeatherData[] = [];
-  dataSource: TableDataSource = new TableDataSource(this.weatherData);
+  ELEMENT_DATA: WeatherData[] = [];
+  dataSource = new MatTableDataSource<WeatherData>(this.ELEMENT_DATA);
 
-  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = [
-    'date',
-    'time',
-    'weather state',
-    'temp',
-    'air pressure',
+    'created',
+    'weather_state_name',
+    'the_temp',
+    'air_pressure',
     'humidity',
-    'wind speed',
-    'wind direction',
+    'wind_speed',
+    'wind_direction_compass',
   ];
+
+  filterData($event: any) {
+    this.dataSource.filter = $event.target.value;
+  }
 
   constructor(private _weatherService: WeatherService) {}
 
   ngOnInit(): void {
     this._weatherService.getWeatherData().subscribe((data) => {
-      this.weatherData = data;
-      this.dataSource = new TableDataSource(this.weatherData);
+      this.dataSource.data = data as WeatherData[];
     });
-    this.dataSource.paginator = this.paginator;
   }
-
-  ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
+  ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
-    this.table.dataSource = this.dataSource;
+    this.dataSource.sort = this.sort;
   }
 }

@@ -1,34 +1,32 @@
+<mat-form-field apperance="fill">
+  <input matInput placeholder="search" (keyup)="filterData($event)" />
+</mat-form-field>
+
 <div class="mat-elevation-z8">
   <table
     mat-table
-    [dataSource]="dataSource.data"
+    [dataSource]="dataSource"
     class="full-width-table"
     matSort
     aria-label="Elements"
   >
-    <ng-container matColumnDef="date">
+    <ng-container matColumnDef="created">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
       <td mat-cell *matCellDef="let row">
-        {{ row.created | date: "dd.MM.YYYY":"GMT" }}
+        {{ row.created | date: "dd.MM.YYYY - HH:mm":"GMT" }}
       </td>
     </ng-container>
-    <ng-container matColumnDef="time">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Time</th>
-      <td mat-cell *matCellDef="let row">
-        {{ row.created | date: "HH:mm":"GMT" }}
-      </td>
-    </ng-container>
-    <ng-container matColumnDef="weather state">
+    <ng-container matColumnDef="weather_state_name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Weather state</th>
       <td mat-cell *matCellDef="let row">{{ row.weather_state_name }}</td>
     </ng-container>
-    <ng-container matColumnDef="temp">
+    <ng-container matColumnDef="the_temp">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Temp</th>
       <td mat-cell *matCellDef="let row">
         {{ row.the_temp | number: "1.0-0" }} °C
       </td>
     </ng-container>
-    <ng-container matColumnDef="air pressure">
+    <ng-container matColumnDef="air_pressure">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Air pressure</th>
       <td mat-cell *matCellDef="let row">
         {{ row.air_pressure | number: "1.0-0" }} mbar
@@ -36,15 +34,15 @@
     </ng-container>
     <ng-container matColumnDef="humidity">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Humidity</th>
-      <td mat-cell *matCellDef="let row">{{ row.humidity }} mph</td>
+      <td mat-cell *matCellDef="let row">{{ row.humidity }} %</td>
     </ng-container>
-    <ng-container matColumnDef="wind speed">
+    <ng-container matColumnDef="wind_speed">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Wind speed</th>
       <td mat-cell *matCellDef="let row">
-        {{ row.wind_speed | number: "1.0-1" }}
+        {{ row.wind_speed | number: "1.0-1" }} mph
       </td>
     </ng-container>
-    <ng-container matColumnDef="wind direction">
+    <ng-container matColumnDef="wind_direction_compass">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Wind direction</th>
       <td mat-cell *matCellDef="let row">{{ row.wind_direction_compass }}</td>
     </ng-container>
@@ -54,11 +52,8 @@
   </table>
 
   <mat-paginator
-    #paginator
-    [length]="dataSource?.data?.length"
-    [pageIndex]="0"
-    [pageSize]="10"
     [pageSizeOptions]="[5, 10, 20]"
+    showFirstLastButtons
     aria-label="Select page"
   >
   </mat-paginator>
