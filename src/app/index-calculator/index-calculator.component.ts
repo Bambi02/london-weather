@@ -12,6 +12,8 @@ export class IndexCalculatorComponent implements OnInit {
   public humidity: number = 0;
   public temperatureinF: number = 0;
   public result: string = '';
+  public showHistory: boolean = false;
+  public storageArray: string[] = [];
 
   calculateHeatIndex = (t: number, h: number): number => {
     const index =
@@ -35,6 +37,18 @@ export class IndexCalculatorComponent implements OnInit {
     return (5 / 9) * (far - 32);
   }
 
+  SaveDataToLocalStorage(data: string): void {
+    this.storageArray.push(data);
+    if (this.storageArray.length > 5) {
+      this.storageArray.shift();
+    }
+    localStorage.setItem('results', JSON.stringify(this.storageArray));
+  }
+
+  toggleShowHistory(): void {
+    this.showHistory = !this.showHistory;
+  }
+
   submit() {
     if (this.tempInC) {
       this.transformInputToF(this.celsius);
@@ -48,6 +62,7 @@ export class IndexCalculatorComponent implements OnInit {
           'Heat Index cannot be calculated for temperature less than 26,7 °C';
       } else {
         this.result = `Heat Index is ${resultInC} °C`;
+        this.SaveDataToLocalStorage(this.result);
       }
     } else {
       this.temperatureinF = this.farenheit;
@@ -60,6 +75,7 @@ export class IndexCalculatorComponent implements OnInit {
           'Heat Index cannot be calculated for temperature less than 80 °F';
       } else {
         this.result = `Heat Index is ${Math.round(resultInF)} °F`;
+        this.SaveDataToLocalStorage(this.result);
       }
     }
   }
@@ -71,5 +87,7 @@ export class IndexCalculatorComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.storageArray = JSON.parse(localStorage.getItem('results')!) || [];
+  }
 }
