@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { WeatherChartComponent } from './weather-chart/weather-chart.component';
-import { WeatherTable2Component } from './weather-table2/weather-table2.component';
 import { IndexCalculatorComponent } from './index-calculator/index-calculator.component';
 import { TableComponent } from './table/table.component';
 

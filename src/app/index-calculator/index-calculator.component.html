@@ -1,16 +1,27 @@
 <div class="container">
-  <form #login="ngForm" (ngSubmit)="submit(login)">
-    <div class="form-group">
-      <label for="temperature">Temperature</label>
-      <input type="number" name="temperature" ngModel />
+  <form #login="ngForm" (ngSubmit)="submit()">
+    <div class="form-group" *ngIf="tempInC; else tempInF">
+      <label for="temperature">Temperature in c</label>
+      <input type="number" name="celsius" [(ngModel)]="celsius" />
+      <button type="button" (click)="switchUnits()">Switch to °F</button>
     </div>
+    <ng-template #tempInF>
+      <div class="form-group">
+        <label for="temperature">Temperature in f</label>
+        <input type="number" name="farenheit" [(ngModel)]="farenheit" />
+        <button type="button" (click)="switchUnits()">Switch to °C</button>
+      </div>
+    </ng-template>
     <div class="form-group">
       <label for="humidity">Humidity</label>
-      <input type="number" name="humidity" ngModel />
+      <input type="number" name="humidity" [(ngModel)]="humidity" />
     </div>
     <button type="submit">Calculate</button>
   </form>
-  <div class="result">
-    {{ result }}
+  <div class="result" *ngIf="tempInC; else tempInFResult">
+    Heat Index is: {{ result | number: "1.0-0" }} °C.
   </div>
+  <ng-template #tempInFResult>
+    <div class="result">Heat Index is: {{ result | number: "1.0-0" }} °F.</div>
+  </ng-template>
 </div>
