@@ -41,7 +41,7 @@ export class WeatherChartComponent implements OnInit {
             {
               label: 'Temperature',
               data: temp.reverse(),
-              borderColor: 'rgb(75, 192, 192)',
+              borderColor: '#6f42c1',
               tension: 0.3,
             },
           ],
@@ -52,6 +52,14 @@ export class WeatherChartComponent implements OnInit {
               title: {
                 display: true,
                 text: 'Temp in °C',
+              },
+              grid: {
+                display: false,
+              },
+            },
+            x: {
+              grid: {
+                display: false,
               },
             },
           },

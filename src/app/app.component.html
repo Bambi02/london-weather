@@ -1,7 +1,19 @@
-<h1>{{ title }}</h1>
-<nav>
-  <a routerLink="/table">Weather table</a>
-  <a routerLink="/chart">Weather chart</a>
-  <a routerLink="/calculator">Heat index calculator</a>
-</nav>
-<router-outlet></router-outlet>
+<div class="container-xxl">
+  <div class="d-flex justify-content-between my-5">
+    <h1 class="ps-3">{{ title }}</h1>
+    <nav>
+      <ul class="nav">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/table">Weather table</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/chart">Weather chart</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/calculator">Heat index calculator</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <router-outlet></router-outlet>
+</div>

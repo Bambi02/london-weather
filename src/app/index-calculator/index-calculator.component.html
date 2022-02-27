@@ -1,33 +1,64 @@
-<div class="container">
-  <form #login="ngForm" (ngSubmit)="submit()">
-    <div class="form-group" *ngIf="isTempInC; else tempInF">
-      <label for="temperature">Temperature in °C</label>
+<div
+  class="d-flex flex-column justify-content-center align-items-center py-5 mt-5 shadow"
+>
+  <form
+    #login="ngForm"
+    (ngSubmit)="submit()"
+    class="d-flex flex-column justify-content-center align-items-center"
+  >
+    <div
+      class="form-group d-flex flex-column align-items-center"
+      *ngIf="isTempInC; else tempInF"
+    >
+      <label for="celsius" class="form-label">Temperature in °C</label>
       <input
         type="number"
         name="celsius"
         [(ngModel)]="inputInC"
-        required
-        [min]="26.7"
+        class="border-0 border-bottom text-end"
       />
-      <button type="button" (click)="switchUnits()">Switch to °F</button>
     </div>
     <ng-template #tempInF>
-      <div class="form-group">
-        <label for="temperature">Temperature in °F</label>
-        <input type="number" name="farenheit" [(ngModel)]="inputInF" />
-        <button type="button" (click)="switchUnits()">Switch to °C</button>
+      <div
+        class="form-group d-flex flex-column justify-content-center align-items-center"
+      >
+        <label for="farenheit" class="form-label">Temperature in °F</label>
+        <input
+          type="number"
+          name="farenheit"
+          [(ngModel)]="inputInF"
+          class="border-0 border-bottom text-end"
+        />
       </div>
     </ng-template>
-    <div class="form-group">
-      <label for="humidity">Humidity</label>
-      <input type="number" name="humidity" [(ngModel)]="inputHumidity" />
+    <div
+      class="form-group d-flex flex-column justify-content-center align-items-center my-4"
+    >
+      <label for="humidity" class="form-label">Humidity</label>
+      <input
+        type="number"
+        name="humidity"
+        [(ngModel)]="inputHumidity"
+        class="border-0 border-bottom text-end"
+      />
     </div>
-    <button type="submit">Calculate</button>
+    <div class="result mt-4">
+      {{ result }}
+    </div>
+    <div class="buttons my-4">
+      <button
+        type="button"
+        (click)="switchUnits()"
+        class="btn btn-secondary me-1 p-1"
+      >
+        {{ isTempInC ? "Switch to °F" : "Switch to °C" }}
+      </button>
+      <button type="submit" class="btn btn-secondary ms-1 p-1">
+        Calculate
+      </button>
+    </div>
   </form>
-  <div class="result">
-    {{ result }}
-  </div>
-  <button (click)="toggleShowHistory()">
+  <button (click)="toggleShowHistory()" class="btn btn-secondary mb-4 p-1">
     {{ showHistory ? "Hide history results" : "Show history results" }}
   </button>
   <div *ngIf="showHistory">
