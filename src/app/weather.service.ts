@@ -7,7 +7,12 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class WeatherService {
-  public selectedDate: string = '2022/2/10';
+  private date: Date = new Date();
+  private today = `${this.date.getFullYear()}/${
+    this.date.getMonth() + 1
+  }/${this.date.getDate()}`;
+
+  public selectedDate: string = this.today;
 
   constructor(private http: HttpClient) {}
 

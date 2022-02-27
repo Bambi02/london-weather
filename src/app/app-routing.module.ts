@@ -5,7 +5,7 @@ import { IndexCalculatorComponent } from './index-calculator/index-calculator.co
 import { TableComponent } from './table/table.component';
 
 const routes: Routes = [
-  //{ path: '', redirectTo: '/table', pathMatch: 'full' },
+  { path: '', redirectTo: '/table', pathMatch: 'full' },
   { path: 'table', component: TableComponent },
   { path: 'chart', component: WeatherChartComponent },
   { path: 'calculator', component: IndexCalculatorComponent },

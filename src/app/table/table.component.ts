@@ -1,7 +1,6 @@
-import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatTable } from '@angular/material/table';
 import { MatTableDataSource } from '@angular/material/table';
 import { WeatherService } from '../weather.service';
 import { WeatherData } from '../weather-data';

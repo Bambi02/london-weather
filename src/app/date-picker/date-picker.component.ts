@@ -8,7 +8,7 @@ import { WeatherService } from '../weather.service';
 })
 export class DatePickerComponent implements OnInit {
   constructor(private _weatherService: WeatherService) {}
-  @Output() someData = new EventEmitter<string>();
+  @Output() makeParentFetchNewData = new EventEmitter<string>();
 
   public formatedDate!: string;
 
@@ -18,7 +18,7 @@ export class DatePickerComponent implements OnInit {
       date.getMonth() + 1
     }/${date.getDate()}`;
     this._weatherService.setSelectedDate(this.formatedDate);
-    this.someData.emit(this.formatedDate);
+    this.makeParentFetchNewData.emit();
   }
 
   ngOnInit(): void {}

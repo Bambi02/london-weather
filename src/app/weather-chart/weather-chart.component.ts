@@ -18,6 +18,9 @@ export class WeatherChartComponent implements OnInit {
 
   ngOnInit(): void {
     this._weatherService.getWeatherData().subscribe((data) => {
+      const temp = data.map((input) => input.the_temp);
+      const date = data.map((input) => input.created);
+
       const formateDate = (date: string): string => {
         const yy = date.slice(2, 4);
         const mm = date.slice(5, 7);
@@ -28,8 +31,6 @@ export class WeatherChartComponent implements OnInit {
         return `${dd}.${mm}.${yy} - ${hh}:${min}`;
       };
 
-      const temp = data.map((input) => input.the_temp);
-      const date = data.map((input) => input.created);
       const formatedDate = date.map((date) => formateDate(date));
 
       this.chart = new Chart('myChart', {
@@ -47,12 +48,6 @@ export class WeatherChartComponent implements OnInit {
         },
         options: {
           scales: {
-            x: {
-              title: {
-                display: true,
-                text: 'Date',
-              },
-            },
             y: {
               title: {
                 display: true,

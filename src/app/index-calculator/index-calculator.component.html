@@ -1,11 +1,11 @@
 <div class="container">
   <form #login="ngForm" (ngSubmit)="submit()">
-    <div class="form-group" *ngIf="tempInC; else tempInF">
+    <div class="form-group" *ngIf="isTempInC; else tempInF">
       <label for="temperature">Temperature in °C</label>
       <input
         type="number"
         name="celsius"
-        [(ngModel)]="celsius"
+        [(ngModel)]="inputInC"
         required
         [min]="26.7"
       />
@@ -14,13 +14,13 @@
     <ng-template #tempInF>
       <div class="form-group">
         <label for="temperature">Temperature in °F</label>
-        <input type="number" name="farenheit" [(ngModel)]="farenheit" />
+        <input type="number" name="farenheit" [(ngModel)]="inputInF" />
         <button type="button" (click)="switchUnits()">Switch to °C</button>
       </div>
     </ng-template>
     <div class="form-group">
       <label for="humidity">Humidity</label>
-      <input type="number" name="humidity" [(ngModel)]="humidity" />
+      <input type="number" name="humidity" [(ngModel)]="inputHumidity" />
     </div>
     <button type="submit">Calculate</button>
   </form>

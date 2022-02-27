@@ -6,11 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./index-calculator.component.css'],
 })
 export class IndexCalculatorComponent implements OnInit {
-  public tempInC: boolean = true;
-  public celsius: number = 0;
-  public farenheit: number = 0;
-  public humidity: number = 0;
-  public temperatureinF: number = 0;
+  public isTempInC: boolean = true;
+  public inputInC: number = 0;
+  public inputInF: number = 0;
+  public inputHumidity: number = 0;
+  public temperatureInF: number = 0;
   public result: string = '';
   public showHistory: boolean = false;
   public storageArray: string[] = [];
@@ -30,14 +30,14 @@ export class IndexCalculatorComponent implements OnInit {
   };
 
   transformInputToF(cels: number): void {
-    this.temperatureinF = (9 / 5) * cels + 32;
+    this.temperatureInF = (9 / 5) * cels + 32;
   }
 
   transformResultToC(far: number): number {
     return (5 / 9) * (far - 32);
   }
 
-  SaveDataToLocalStorage(data: string): void {
+  saveDataToLocalStorage(data: string): void {
     this.storageArray.push(data);
     if (this.storageArray.length > 5) {
       this.storageArray.shift();
@@ -50,38 +50,37 @@ export class IndexCalculatorComponent implements OnInit {
   }
 
   submit() {
-    if (this.tempInC) {
-      this.transformInputToF(this.celsius);
+    if (this.isTempInC) {
+      this.transformInputToF(this.inputInC);
       const resultInC = Math.round(
         this.transformResultToC(
-          this.calculateHeatIndex(this.temperatureinF, this.humidity)
+          this.calculateHeatIndex(this.temperatureInF, this.inputHumidity)
         )
       );
-      if (this.celsius < 26.7) {
+      if (this.inputInC < 26.7) {
         this.result =
           'Heat Index cannot be calculated for temperature less than 26,7 °C';
       } else {
         this.result = `Heat Index is ${resultInC} °C`;
-        this.SaveDataToLocalStorage(this.result);
+        this.saveDataToLocalStorage(this.result);
       }
     } else {
-      this.temperatureinF = this.farenheit;
       const resultInF = this.calculateHeatIndex(
-        this.temperatureinF,
-        this.humidity
+        this.inputInF,
+        this.inputHumidity
       );
-      if (this.farenheit < 80) {
+      if (this.inputInF < 80) {
         this.result =
           'Heat Index cannot be calculated for temperature less than 80 °F';
       } else {
         this.result = `Heat Index is ${Math.round(resultInF)} °F`;
-        this.SaveDataToLocalStorage(this.result);
+        this.saveDataToLocalStorage(this.result);
       }
     }
   }
 
   switchUnits(): void {
-    this.tempInC = !this.tempInC;
+    this.isTempInC = !this.isTempInC;
     this.result = '';
   }
 
