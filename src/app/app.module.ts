@@ -14,6 +14,9 @@ import { MatSortModule } from '@angular/material/sort';
 import { TableComponent } from './table/table.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { DatePickerComponent } from './date-picker/date-picker.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -21,6 +24,7 @@ import { MatInputModule } from '@angular/material/input';
     WeatherChartComponent,
     IndexCalculatorComponent,
     TableComponent,
+    DatePickerComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,6 +37,8 @@ import { MatInputModule } from '@angular/material/input';
     MatSortModule,
     MatFormFieldModule,
     MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   providers: [WeatherService],
   bootstrap: [AppComponent],

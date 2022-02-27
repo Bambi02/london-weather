@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
@@ -27,6 +27,12 @@ export class TableComponent implements AfterViewInit {
     'wind_speed',
     'wind_direction_compass',
   ];
+
+  getNewData(value: string) {
+    this._weatherService.getWeatherData().subscribe((data) => {
+      this.dataSource.data = data as WeatherData[];
+    });
+  }
 
   filterData($event: any) {
     this.dataSource.filter = $event.target.value;

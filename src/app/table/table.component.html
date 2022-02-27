@@ -1,7 +1,7 @@
 <mat-form-field apperance="fill">
   <input matInput placeholder="search" (keyup)="filterData($event)" />
 </mat-form-field>
-
+<app-date-picker (someData)="getNewData($event)"></app-date-picker>
 <div class="mat-elevation-z8">
   <table
     mat-table

@@ -7,14 +7,19 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class WeatherService {
-  private _BASE_URL =
-    'https://www.metaweather.com/api/location/44418/2018/4/30/';
-  private _CROSS_DOMAIN = 'https://the-ultimate-api-challenge.herokuapp.com';
-  private _REQUEST_URL = `${this._CROSS_DOMAIN}/${this._BASE_URL}`;
+  public selectedDate: string = '2022/2/10';
 
   constructor(private http: HttpClient) {}
 
+  public setSelectedDate(date: string) {
+    this.selectedDate = date;
+  }
+
   getWeatherData(): Observable<WeatherData[]> {
-    return this.http.get<WeatherData[]>(this._REQUEST_URL);
+    const BASE_URL = `https://www.metaweather.com/api/location/44418/${this.selectedDate}/`;
+    const CROSS_DOMAIN = 'https://the-ultimate-api-challenge.herokuapp.com';
+    const REQUEST_URL = `${CROSS_DOMAIN}/${BASE_URL}`;
+
+    return this.http.get<WeatherData[]>(REQUEST_URL);
   }
 }
