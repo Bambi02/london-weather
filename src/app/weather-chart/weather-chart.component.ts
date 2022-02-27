@@ -54,12 +54,12 @@ export class WeatherChartComponent implements OnInit {
                 text: 'Temp in °C',
               },
               grid: {
-                display: false,
+                display: true,
               },
             },
             x: {
               grid: {
-                display: false,
+                display: true,
               },
             },
           },

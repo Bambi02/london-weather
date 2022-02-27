@@ -19,6 +19,7 @@ export class TableComponent implements AfterViewInit {
 
   displayedColumns = [
     'created',
+    'icon',
     'weather_state_name',
     'the_temp',
     'air_pressure',
